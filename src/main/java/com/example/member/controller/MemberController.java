@@ -1,9 +1,9 @@
-package com.example.nine.controller;
+package com.example.member.controller;
 
-import com.example.nine.dto.MemberRequestDto;
-import com.example.nine.dto.MemberResponseDto;
-import com.example.nine.repository.MemberRepository;
-import com.example.nine.service.MemberService;
+import com.example.member.dto.MemberRequestDto;
+import com.example.member.dto.MemberResponseDto;
+import com.example.member.repository.MemberRepository;
+import com.example.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

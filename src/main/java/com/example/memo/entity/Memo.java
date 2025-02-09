@@ -1,4 +1,4 @@
-package com.example.nine.entity;
+package com.example.memo.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,19 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity // <- 이걸 함으로써 DB에 쿼리가 나가게 된다
+@Entity
 @NoArgsConstructor
-public class Member {
+public class Memo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String content;
 
-    public Member(String name) {
-        this.name = name;
+    public Memo(String content) {
+        this.content = content;
     }
 
-    public void update(String name) {
-        this.name = name;
+    public void update(String content) {
+        this.content = content;
     }
 }

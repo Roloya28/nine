@@ -1,9 +1,9 @@
-package com.example.nine.service;
+package com.example.member.service;
 
-import com.example.nine.dto.MemberRequestDto;
-import com.example.nine.dto.MemberResponseDto;
-import com.example.nine.entity.Member;
-import com.example.nine.repository.MemberRepository;
+import com.example.member.dto.MemberRequestDto;
+import com.example.member.dto.MemberResponseDto;
+import com.example.member.entity.Member;
+import com.example.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

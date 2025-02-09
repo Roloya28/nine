@@ -1,4 +1,4 @@
-package com.example.nine.dto;
+package com.example.member.dto;
 
 import lombok.Getter;
 

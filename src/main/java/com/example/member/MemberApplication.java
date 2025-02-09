@@ -1,13 +1,13 @@
-package com.example.nine;
+package com.example.member;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NineApplication {
+public class MemberApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NineApplication.class, args);
+        SpringApplication.run(MemberApplication.class, args);
     }
 
 }
