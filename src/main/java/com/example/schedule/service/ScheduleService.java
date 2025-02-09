@@ -1,6 +1,6 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.ScheduleRequesetDto;
+import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
@@ -15,47 +15,48 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleService {
 
-    private  final ScheduleRepository scheduleRepository;
-
-
+    private final ScheduleRepository scheduleRepository;
 
     @Transactional
-    public ScheduleResponseDto save(ScheduleRequesetDto dto) {
-        Schedule schedule = new Schedule(dto.getContent());
+    public ScheduleResponseDto save(ScheduleRequestDto dto) { // Create
+        Schedule schedule = new Schedule(dto.getTask(), dto.getAuthor(), dto.getPassword());
         Schedule savedSchedule = scheduleRepository.save(schedule);
-        return new ScheduleResponseDto(savedSchedule.getId(), savedSchedule.getContent());
+        return new ScheduleResponseDto(savedSchedule.getId(), savedSchedule.getTask(), savedSchedule.getAuthor(), savedSchedule.getCreatedDate(), savedSchedule.getUpdatedDate());
     }
 
-    public List<ScheduleResponseDto> findAll() {
+    @Transactional(readOnly = true)
+    public List<ScheduleResponseDto> findAll() { // Read All
         List<Schedule> schedules = scheduleRepository.findAll();
 
         List<ScheduleResponseDto> dtos = new ArrayList<>();
         for (Schedule schedule : schedules) {
-            dtos.add(new ScheduleResponseDto(schedule.getId(), schedule.getContent()));
+            dtos.add(new ScheduleResponseDto(schedule.getId(), schedule.getTask(), schedule.getAuthor(), schedule.getCreatedDate(), schedule.getUpdatedDate()));
         }
         return dtos;
     }
 
-    public ScheduleResponseDto findById(Long id) {
+    @Transactional(readOnly = true)
+    public ScheduleResponseDto findById(Long id) { // Read One
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 id에 맞는 스케쥴이 없습니다.")
         );
-        return new ScheduleResponseDto(schedule.getId(), schedule.getContent());
+        return new ScheduleResponseDto(schedule.getId(), schedule.getTask(), schedule.getAuthor(), schedule.getCreatedDate(), schedule.getUpdatedDate());
     }
 
-    public ScheduleResponseDto update(Long id, ScheduleRequesetDto dto) {
+    @Transactional
+    public ScheduleResponseDto update(Long id, ScheduleRequestDto dto) { // Update
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 id에 맞는 스케쥴이 없습니다.")
         );
-        schedule.update(dto.getContent());
-        return new ScheduleResponseDto(schedule.getId(), schedule.getContent());
+        schedule.update(dto.getTask(), dto.getAuthor(), dto.getPassword());
+        scheduleRepository.save(schedule);
+        return new ScheduleResponseDto(schedule.getId(), schedule.getTask(), schedule.getAuthor(), schedule.getCreatedDate(), schedule.getUpdatedDate());
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id) { // Delete
         if (!scheduleRepository.existsById(id)) {
-            throw new IllegalArgumentException("없습니다.");
+            throw new IllegalArgumentException("스케쥴이 없습니다.");
         }
         scheduleRepository.deleteById(id);
     }
-
 }

@@ -1,8 +1,7 @@
 package com.example.schedule.controller;
 
-import com.example.schedule.dto.ScheduleRequesetDto;
+import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
-import com.example.schedule.entity.Schedule;
 import com.example.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,12 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/schedules")
-    public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleRequesetDto dto) {
+    public ResponseEntity<ScheduleResponseDto> save(@RequestBody ScheduleRequestDto dto) {
         return ResponseEntity.ok(scheduleService.save(dto));
     }
 
     @GetMapping("/schedules")
-    public ResponseEntity<List<ScheduleResponseDto>> findAll() {
+    public ResponseEntity<List<ScheduleResponseDto>> findAll(@RequestParam(required = false) String updatedDate, @RequestParam(required = false) String author) {
         return ResponseEntity.ok(scheduleService.findAll());
     }
 
@@ -32,7 +31,7 @@ public class ScheduleController {
     }
 
     @PutMapping("/schedules/{id}")
-    public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @RequestBody ScheduleRequesetDto dto) {
+    public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @RequestBody ScheduleRequestDto dto) {
         return ResponseEntity.ok(scheduleService.update(id, dto));
     }
 
